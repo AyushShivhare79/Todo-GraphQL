@@ -1,32 +1,22 @@
 import { ApolloServer } from "@apollo/server";
-
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
+import { userSchema } from "../graphql/user/index";
 
 async function createApolloServer() {
   const server = new ApolloServer({
     typeDefs: `#graphql
-    type Book {
-      title: String
-      author: String
-    }
-  
-    type Query {
-      books: [Book]
-    }
-  `,
 
+    type Book {
+    name: String!
+  }
+    
+    type Query {
+      ${userSchema.queries}
+    }
+
+  `,
     resolvers: {
       Query: {
-        books: () => books,
+        ...userSchema.resolvers.queries,
       },
     },
   });
