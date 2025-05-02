@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
+import createApolloServer from "./graphql";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CORS_ORIGIN!,
   methods: "GET, PUT, POST, DELETE",
 };
 
@@ -13,8 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-// app.use("/graphql", )
+const startApolloServer = async () => {
+  const server = await createApolloServer();
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: PORT },
+  });
+
+  console.log(`🚀  Server ready at: ${url}`);
+};
+
+startApolloServer();

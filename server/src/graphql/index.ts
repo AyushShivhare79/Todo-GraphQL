@@ -1,52 +1,37 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { Query } from "mongoose";
 
-// const typeDefs = `#graphql
-//   type Book {
-//     title: String
-//     author: String
-//   }
-
-//   type Query {
-//     books: [Book]
-//   }
-// `;
-
-// const books = [
-//   {
-//     title: "The Awakening",
-//     author: "Kate Chopin",
-//   },
-//   {
-//     title: "City of Glass",
-//     author: "Paul Auster",
-//   },
-// ];
-
-// const resolvers = {
-//   Query: {
-//     books: () => books,
-//   },
-// };
+const books = [
+  {
+    title: "The Awakening",
+    author: "Kate Chopin",
+  },
+  {
+    title: "City of Glass",
+    author: "Paul Auster",
+  },
+];
 
 async function createApolloServer() {
   const server = new ApolloServer({
-    typeDefs: `#graphql  
-
-        type Query{
-            hello: String
-        }
-
+    typeDefs: `#graphql
+    type Book {
+      title: String
+      author: String
+    }
+  
+    type Query {
+      books: [Book]
+    }
   `,
+
     resolvers: {
       Query: {
-        hello: () => "Hello world!",
+        books: () => books,
       },
     },
   });
 
-  await server.start();
-
   return server;
 }
+
+export default createApolloServer;
