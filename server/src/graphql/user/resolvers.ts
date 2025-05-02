@@ -1,3 +1,5 @@
+import UserModel from "../../models/user.model";
+
 const queries = {
   book: () => [
     {
@@ -7,13 +9,24 @@ const queries = {
   user: () => [
     {
       id: "1",
-      name: "John Doe",
       email: "john@gmail.com",
       password: "12345678",
     },
   ],
 };
 
-const mutations = {};
+const mutations = {
+  createUser: async (
+    _: any,
+    { email, password }: { email: string; password: string }
+  ) => {
+    const response = await UserModel.create({
+      email,
+      password,
+    });
+
+    return "Created user successfully";
+  },
+};
 
 export const resolvers = { queries, mutations };
