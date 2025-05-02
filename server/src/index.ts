@@ -1,45 +1,28 @@
-import { ApolloServer } from "@apollo/server";
+import express from "express";
+import cors from "cors";
+import createApolloServer from "./graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-const typeDefs = `#graphql
-  type Book {
-    title: String
-    author: String
-  }
+const app = express();
+const PORT = Number(process.env.PORT) || 5000;
 
-  type Query {
-    books: [Book]
-  }
-`;
-
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN!,
+  methods: "GET, PUT, POST, DELETE",
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
 
-const serve = async () => {
+const startApolloServer = async () => {
+  const server = await createApolloServer();
+
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port: PORT },
   });
 
   console.log(`🚀  Server ready at: ${url}`);
 };
 
-serve();
+startApolloServer();
