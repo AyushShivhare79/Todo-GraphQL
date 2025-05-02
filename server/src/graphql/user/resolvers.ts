@@ -6,13 +6,7 @@ const queries = {
       name: "John Doe",
     },
   ],
-  user: () => [
-    {
-      id: "1",
-      email: "john@gmail.com",
-      password: "12345678",
-    },
-  ],
+  user: () => {},
 };
 
 const mutations = {
@@ -26,6 +20,23 @@ const mutations = {
     });
 
     return "Created user successfully";
+  },
+  signIn: async (
+    _: any,
+    { email, password }: { email: string; password: string }
+  ) => {
+    const user = await UserModel.findOne({
+      email,
+      password,
+    }).select({ email: 1, password: 1 });
+
+    console.log(`User: ${user}`);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return "Signed in successfully";
   },
 };
 
