@@ -1,7 +1,4 @@
 export const queries = `#graphql
-
-
-      book: [Book]
-
-
+    book: [Book]
+    user: [User]
 `;

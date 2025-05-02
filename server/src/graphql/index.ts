@@ -5,15 +5,15 @@ async function createApolloServer() {
   const server = new ApolloServer({
     typeDefs: `#graphql
 
-    type Book {
-    name: String!
-  }
+    ${userSchema.typeDefs}
     
     type Query {
       ${userSchema.queries}
     }
-
+    
+    
   `,
+
     resolvers: {
       Query: {
         ...userSchema.resolvers.queries,
