@@ -1,40 +1,27 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-} from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import "./App.css";
-import { useEffect } from "react";
+import { signIn, signUp } from "./graphql/mutations/Auth";
 
 function App() {
-  const client = new ApolloClient({
-    uri: import.meta.env.VITE_SERVER_URL!,
-    cache: new InMemoryCache(),
-  });
+  // const { loading, data } = useQuery(Book);
+  const [test, { data, loading, error }] = useMutation(signUp);
 
-  const call = async () => {
-    client
-      .query({
-        query: gql`
-          query {
-            book {
-              name
-            }
-          }
-        `,
-      })
-      .then((result) => {
-        console.log(result);
-      });
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const createUser = async () => {
+    test({
+      variables: {
+        email: "test2@gmail.com",
+        password: "12345678",
+      },
+    });
   };
-
-  useEffect(() => {
-    call();
-  }, []);
 
   return (
     <>
-      <div>Hello</div>
+      <button onClick={createUser}>Create User</button>
     </>
   );
 }
