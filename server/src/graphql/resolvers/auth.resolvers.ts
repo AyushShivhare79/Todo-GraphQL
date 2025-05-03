@@ -1,11 +1,6 @@
-import { z } from "zod";
 import UserModel from "../../models/user.model";
 import bcrypt from "bcryptjs";
-
-const userSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
+import { userSchema } from "../../validations/auth";
 
 export const AuthResolvers = {
   Query: {

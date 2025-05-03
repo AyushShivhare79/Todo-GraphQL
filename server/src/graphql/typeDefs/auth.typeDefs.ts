@@ -1,4 +1,4 @@
-const typeDefs = `#graphql
+export const authTypeDefs = `#graphql
     type Book {
         name: String!
     }
@@ -13,8 +13,6 @@ const typeDefs = `#graphql
         book: [Book]
         user: [User]
     }
-
-
 
     type Mutation {
         signUp(email: String, password: String) : String
