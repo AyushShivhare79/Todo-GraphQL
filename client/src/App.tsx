@@ -1,27 +1,27 @@
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import "./App.css";
-import { signIn, signUp } from "./graphql/mutations/Auth";
+import { signUp } from "./graphql/mutations/Auth";
 
 function App() {
-  // const { loading, data } = useQuery(Book);
-  const [test, { data, loading, error }] = useMutation(signUp);
+  const [register, { data, loading, error }] = useMutation(signUp);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const {
+    register: registerForm,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const createUser = async () => {
-    test({
-      variables: {
-        email: "test2@gmail.com",
-        password: "12345678",
-      },
-    });
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    console.log(data);
   };
 
   return (
     <>
-      <button onClick={createUser}>Create User</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="text" />
+        <button type="submit">Sign Up</button>
+      </form>
     </>
   );
 }

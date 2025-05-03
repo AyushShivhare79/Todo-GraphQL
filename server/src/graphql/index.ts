@@ -4,18 +4,7 @@ import { connectDB } from "../db/db";
 
 async function createApolloServer() {
   const server = new ApolloServer({
-    typeDefs: `#graphql
-
-    ${userSchema.typeDefs}
-
-    type Query {
-      ${userSchema.queries}
-    }
-
-    type Mutation {
-      ${userSchema.mutations}
-    }
-  `,
+    typeDefs,
 
     resolvers: {
       Query: {
