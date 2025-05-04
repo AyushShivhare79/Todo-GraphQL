@@ -13,8 +13,9 @@ body {
 }
 
 .submitButton {
-  background-color: black;
-  color: white;
+  background-color: white;
+  font-size: medium;
+  color: black;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -22,7 +23,7 @@ body {
 }
 
 .submitButton:hover {
-  background-color: #555;
+  background-color: #f0f0f0;
 }
 
 /* Signup container */
@@ -34,20 +35,20 @@ body {
   justify-content: center;
   height: 100vh;
 }
+
 .signupContainer section {
-  border-style: ridge;
-  padding: 100px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+  width: 100%;
+  padding: 40px;
+  background-color: #111827;
+  border-radius: 10px;
+}
+
+.signupContainer div {
+  padding: 25px 0px 25px 0px;
 }
 
 .signupContainer button {
   width: 100%;
-}
-
-.signupContainer h1 {
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.signupContainer input {
-  margin-bottom: 14px;
 }
